@@ -73,7 +73,6 @@ Once connected, ask your AI agent things like:
 | Environment variable | Required | Description |
 |---------------------|----------|-------------|
 | `JANUS_API_KEY` | Yes | Your Janus API key (starts with `jns_`) |
-| `JANUS_API_URL` | No | Override the API base URL (defaults to `https://api.addjanus.ca/api/v1`) |
 
 ## License
 
