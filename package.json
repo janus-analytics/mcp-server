@@ -1,6 +1,6 @@
 {
   "name": "@janus-analytics/mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for querying Janus analytics — let your AI agent check your dashboard, events, funnels, and usage.",
   "keywords": [
     "mcp",

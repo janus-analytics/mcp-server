@@ -192,6 +192,7 @@ export interface ApiKey {
   name: string;
   prefix: string;
   allowedOrigins: string[];
+  excludedIPs: string[];
   createdAt: string;
   lastUsedAt: string | null;
 }

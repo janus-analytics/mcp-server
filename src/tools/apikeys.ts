@@ -28,6 +28,9 @@ export async function handleListApiKeys(client: JanusClient): Promise<string> {
     if (k.allowedOrigins.length > 0) {
       lines.push(`  Allowed origins: ${k.allowedOrigins.join(", ")}`);
     }
+    if (k.excludedIPs.length > 0) {
+      lines.push(`  Excluded IPs: ${k.excludedIPs.join(", ")}`);
+    }
     lines.push(`  Created: ${k.createdAt}`);
     lines.push(`  Last used: ${k.lastUsedAt || "never"}`);
     lines.push("");
