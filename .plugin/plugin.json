@@ -1,0 +1,22 @@
+{
+  "name": "janus-analytics",
+  "version": "1.0.1",
+  "description": "MCP server for querying Janus analytics — let your AI agent check your dashboard, events, funnels, and usage.",
+  "author": {
+    "name": "Janus Analytics",
+    "url": "https://addjanus.ca"
+  },
+  "homepage": "https://addjanus.ca",
+  "repository": "https://github.com/janus-analytics/mcp-server",
+  "license": "MIT",
+  "logo": "./assets/logo.svg",
+  "keywords": [
+    "mcp",
+    "analytics",
+    "janus",
+    "ai-agent",
+    "claude",
+    "cursor"
+  ],
+  "mcpServers": "./.mcp.json"
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "janus": {
+      "command": "npx",
+      "args": ["-y", "@janus-analytics/mcp-server"],
+      "env": {
+        "JANUS_API_KEY": ""
+      }
+    }
+  }
+}
