@@ -1,16 +1,14 @@
-const DEFAULT_BASE_URL = "https://api.addjanus.ca/api/v1";
+const BASE_URL = "https://api.addjanus.ca/api/v1";
 
 export class JanusClient {
-  private baseUrl: string;
   private apiKey: string;
 
-  constructor(apiKey: string, baseUrl?: string) {
+  constructor(apiKey: string) {
     this.apiKey = apiKey;
-    this.baseUrl = (baseUrl || DEFAULT_BASE_URL).replace(/\/$/, "");
   }
 
   private async request<T>(path: string, params?: Record<string, string>): Promise<T> {
-    const url = new URL(`${this.baseUrl}${path}`);
+    const url = new URL(`${BASE_URL}${path}`);
     if (params) {
       for (const [key, value] of Object.entries(params)) {
         if (value !== undefined && value !== "") {

@@ -16,11 +16,11 @@ if (!apiKey) {
   process.exit(1);
 }
 
-const client = new JanusClient(apiKey, process.env.JANUS_API_URL);
+const client = new JanusClient(apiKey);
 
 const server = new McpServer({
   name: "janus-analytics",
-  version: "1.0.0",
+  version: "1.0.2",
 });
 
 // --- Tools ---
