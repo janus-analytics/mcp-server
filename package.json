@@ -15,7 +15,7 @@
   "homepage": "https://addjanus.ca",
   "repository": {
     "type": "git",
-    "url": "https://github.com/janus-analytics/mcp-server"
+    "url": "git+https://github.com/janus-analytics/mcp-server.git"
   },
   "type": "module",
   "main": "dist/index.js",
