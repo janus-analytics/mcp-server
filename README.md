@@ -4,9 +4,13 @@ An [MCP server](https://modelcontextprotocol.io) that connects AI coding agents 
 
 ## Setup
 
-### 1. Get a Janus API key
+### 1. Get a Janus API key with `Full access` scope
 
-Sign up at [addjanus.ca](https://addjanus.ca) and create an API key in Settings.
+Sign up at [addjanus.ca](https://addjanus.ca) and create an API key in Settings. Set the scope to **Full access**.
+
+Keys default to **Ingest** scope, which can only send events — an Ingest key returns `403` on every tool in this server. Generate a key specifically for MCP rather than reusing the one on your website: a Full access key reads all your analytics and can manage keys, so it must never appear in browser code.
+
+> **Upgrading from an earlier version?** Existing keys were moved to `Ingest` scope when scoping shipped. If your tools started returning `403`, create a Full access key in Settings and update `JANUS_API_KEY`.
 
 ### 2. Add to your MCP client
 
@@ -72,7 +76,7 @@ Once connected, ask your AI agent things like:
 
 | Environment variable | Required | Description |
 |---------------------|----------|-------------|
-| `JANUS_API_KEY` | Yes | Your Janus API key (starts with `jns_`) |
+| `JANUS_API_KEY` | Yes | Your Janus API key (starts with `jns_`). Must have `Full access` scope |
 
 ## License
 
