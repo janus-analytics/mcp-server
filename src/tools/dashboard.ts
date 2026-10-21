@@ -3,7 +3,7 @@ import type { JanusClient, DashboardStats } from "../client.js";
 export const dashboardTool = {
   name: "get_dashboard_stats",
   description:
-    "Get dashboard analytics: event counts, unique visitors, top pages, referrers, UTM sources, country breakdown, bounce rate, and daily event trends. Returns the same data that powers the Janus dashboard.",
+    "Get dashboard analytics: event counts, unique visitors, top pages, UTM sources, country breakdown, bounce rate, and daily event trends. Bot traffic is filtered out of these numbers and summarized separately. Returns the same data that powers the Janus dashboard.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -73,6 +73,23 @@ function formatDashboardStats(stats: DashboardStats): string {
     lines.push(`\n## UTM Campaigns`);
     for (const u of stats.utmCampaigns) {
       lines.push(`- ${u.value}: ${u.count.toLocaleString()}`);
+    }
+  }
+
+  if (stats.botTraffic) {
+    const bots = stats.botTraffic;
+    lines.push(`\n## Bot Traffic (excluded from the numbers above)`);
+    if (bots.total === 0) {
+      lines.push(`- No bot traffic detected`);
+    } else {
+      lines.push(`- Bot events: ${bots.total.toLocaleString()} (${bots.percentOfTotal}% of all traffic)`);
+      lines.push(`- Bot events today: ${bots.today.toLocaleString()}`);
+      for (const k of bots.byKind) {
+        lines.push(`- ${k.kind}: ${k.count.toLocaleString()}`);
+      }
+      for (const a of bots.topUserAgents) {
+        lines.push(`- UA (${a.count.toLocaleString()}): ${a.ua}`);
+      }
     }
   }
 

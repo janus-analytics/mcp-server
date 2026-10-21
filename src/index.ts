@@ -20,14 +20,14 @@ const client = new JanusClient(apiKey);
 
 const server = new McpServer({
   name: "janus-analytics",
-  version: "1.0.2",
+  version: "1.1.0",
 });
 
 // --- Tools ---
 
 server.tool(
   "get_dashboard_stats",
-  "Get dashboard analytics: event counts, unique visitors, top pages, referrers, UTM sources, country breakdown, bounce rate, and daily event trends.",
+  "Get dashboard analytics: event counts, unique visitors, top pages, UTM sources, country breakdown, bounce rate, and daily event trends. Bot traffic is filtered out of these numbers and summarized separately.",
   {
     apiKeyId: z.string().uuid().optional().describe("Filter stats to a specific API key (UUID). Omit to see stats across all keys."),
   },
@@ -39,13 +39,14 @@ server.tool(
 
 server.tool(
   "query_events",
-  "Search and filter the event log. Supports filtering by event type, tags, date range, and API key. Returns paginated results.",
+  "Search and filter the event log. Supports filtering by event type, tags, date range, and API key. Bot events are hidden unless you pass bots. Returns paginated results.",
   {
-    type: z.string().optional().describe("Filter by event type (e.g. 'pageview', 'cta_click')."),
+    type: z.string().optional().describe("Filter by event type (e.g. '$pageview', 'cta_click')."),
     tags: z.string().optional().describe("Comma-separated tags to filter by."),
     apiKeyId: z.string().uuid().optional().describe("Filter to events from a specific API key (UUID)."),
     from: z.string().optional().describe("Start date (ISO 8601)."),
     to: z.string().optional().describe("End date (ISO 8601)."),
+    bots: z.enum(["exclude", "only", "include"]).optional().describe("Bot traffic: 'exclude' (default) hides bots, 'only' shows just bots, 'include' shows both."),
     page: z.number().int().positive().optional().describe("Page number (default: 1)."),
     limit: z.number().int().min(1).max(100).optional().describe("Results per page (default: 20, max: 100)."),
   },
@@ -57,7 +58,7 @@ server.tool(
 
 server.tool(
   "get_usage",
-  "Check current month's event usage against your tier cap, API key count, and per-key breakdown.",
+  "Check current month's event usage against your tier cap, API key count, and per-key breakdown. Bot events don't count against the cap.",
   {},
   async () => {
     const text = await handleGetUsage(client);

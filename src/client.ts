@@ -44,6 +44,7 @@ export class JanusClient {
     if (options?.apiKeyId) params.apiKeyId = options.apiKeyId;
     if (options?.from) params.from = options.from;
     if (options?.to) params.to = options.to;
+    if (options?.bots) params.bots = options.bots;
     if (options?.page) params.page = String(options.page);
     if (options?.limit) params.limit = String(options.limit);
     return this.request<EventsResponse>("/events", params);
@@ -93,6 +94,13 @@ export interface DashboardStats {
   utmMediums: { value: string; count: number }[];
   utmCampaigns: { value: string; count: number }[];
   topCountries: { code: string; count: number }[];
+  botTraffic?: {
+    total: number;
+    today: number;
+    percentOfTotal: number;
+    byKind: { kind: string; count: number }[];
+    topUserAgents: { ua: string; count: number }[];
+  };
   source: "db" | "cache";
 }
 
@@ -102,6 +110,7 @@ export interface EventsQuery {
   apiKeyId?: string;
   from?: string;
   to?: string;
+  bots?: "exclude" | "only" | "include";
   page?: number;
   limit?: number;
 }
@@ -116,6 +125,8 @@ export interface EventsResponse {
     sessionId: string | null;
     context: Record<string, unknown>;
     timestamp: string;
+    isBot?: boolean;
+    botKind?: string | null;
     apiKeyId: string | null;
     createdAt: string;
     updatedAt: string;

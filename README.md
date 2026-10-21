@@ -55,8 +55,8 @@ All tools are **read-only** — the server never modifies your data.
 
 | Tool | Description |
 |------|-------------|
-| `get_dashboard_stats` | Event counts, unique visitors, top pages, referrers, UTM sources, countries, bounce rate, and daily trends. Optional `apiKeyId` filter. |
-| `query_events` | Search the event log with filters for type, tags, date range, API key, and pagination. |
+| `get_dashboard_stats` | Event counts, unique visitors, top pages, UTM sources, countries, bounce rate, and daily trends, with bot traffic summarized separately. Optional `apiKeyId` filter. |
+| `query_events` | Search the event log with filters for type, tags, date range, API key, bots (`exclude` by default, `only`, `include`), and pagination. |
 | `get_usage` | Current month's event usage vs. tier cap, API key count, and per-key breakdown. |
 | `list_journeys` | List all funnels with step definitions, match scope, and conversion windows. |
 | `get_journey_results` | Funnel conversion data — per-step counts, conversion rates, and median time between steps. |

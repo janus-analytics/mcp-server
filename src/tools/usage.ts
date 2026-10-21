@@ -21,7 +21,7 @@ export async function handleGetUsage(client: JanusClient): Promise<string> {
   lines.push("# Usage\n");
   lines.push(`## This Month`);
   lines.push(`- Tier: ${usage.tier}`);
-  lines.push(`- Events: ${usage.events.used.toLocaleString()} / ${usage.events.limit.toLocaleString()} (${usage.events.percentUsed.toFixed(1)}%)`);
+  lines.push(`- Events: ${usage.events.used.toLocaleString()} / ${usage.events.limit.toLocaleString()} (${usage.events.percentUsed.toFixed(1)}%, excludes bot traffic)`);
   lines.push(`- Remaining: ${usage.events.remaining.toLocaleString()}`);
   lines.push(`- Resets: ${usage.resetsAt}`);
   lines.push(`- Data retention: ${usage.retention.description}`);

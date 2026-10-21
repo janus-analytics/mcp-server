@@ -3,13 +3,13 @@ import type { JanusClient } from "../client.js";
 export const eventsTool = {
   name: "query_events",
   description:
-    "Search and filter the event log. Supports filtering by event type, tags, date range, and API key. Returns paginated results with event details including payload, context, and tags.",
+    "Search and filter the event log. Supports filtering by event type, tags, date range, and API key. Bot events are hidden unless you pass bots. Returns paginated results with event details including payload, context, and tags.",
   inputSchema: {
     type: "object" as const,
     properties: {
       type: {
         type: "string",
-        description: "Filter by event type (e.g. 'pageview', 'cta_click', 'signup').",
+        description: "Filter by event type (e.g. '$pageview', 'cta_click', 'signup').",
       },
       tags: {
         type: "string",
@@ -26,6 +26,11 @@ export const eventsTool = {
       to: {
         type: "string",
         description: "End date (ISO 8601, e.g. '2026-03-31T23:59:59Z').",
+      },
+      bots: {
+        type: "string",
+        enum: ["exclude", "only", "include"],
+        description: "Bot traffic: 'exclude' (default) hides bots, 'only' shows just bots, 'include' shows both.",
       },
       page: {
         type: "number",
@@ -47,6 +52,7 @@ export async function handleQueryEvents(
     apiKeyId?: string;
     from?: string;
     to?: string;
+    bots?: "exclude" | "only" | "include";
     page?: number;
     limit?: number;
   }
@@ -63,6 +69,7 @@ export async function handleQueryEvents(
 
   for (const event of result.data) {
     lines.push(`## ${event.type} — ${event.timestamp}`);
+    if (event.isBot) lines.push(`  Bot: ${event.botKind ?? "yes"}`);
     if (event.tags.length > 0) lines.push(`  Tags: ${event.tags.join(", ")}`);
     if (event.distinctId) lines.push(`  User: ${event.distinctId}`);
     if (event.sessionId) lines.push(`  Session: ${event.sessionId}`);
